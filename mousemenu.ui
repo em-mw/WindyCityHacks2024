@@ -20,8 +20,17 @@
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
      <widget class="QLabel" name="image_label">
+      <property name="font">
+       <font>
+        <family>Yu Gothic UI Semilight</family>
+        <pointsize>28</pointsize>
+       </font>
+      </property>
       <property name="text">
-       <string>VIDEO\</string>
+       <string>Video Loading...</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
       </property>
      </widget>
     </item>
@@ -30,30 +39,35 @@
       <item>
        <widget class="QLabel" name="label_2">
         <property name="text">
-         <string>🔴Status: Detection: %d, </string>
+         <string>🔴Status: Detection: Camera Feed Not Available 😨</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_2">
+       <widget class="QPushButton" name="MouseCamButton">
         <property name="text">
-         <string>Start MouseCam</string>
+         <string>MouseCam is (OFF) ❌</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QLabel" name="label">
+        <property name="frameShape">
+         <enum>QFrame::NoFrame</enum>
+        </property>
         <property name="text">
-         <string>Stop MouseCam</string>
+         <string>Camera:</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_3">
-        <property name="text">
-         <string>Switch Camera</string>
-        </property>
-       </widget>
+       <widget class="QSpinBox" name="CameraBox"/>
       </item>
      </layout>
     </item>
