@@ -50,7 +50,6 @@ class Ui_MainWindow(object):
         self.statusbar = QtWidgets.QStatusBar(parent=MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
-
         
 
         self.retranslateUi(MainWindow)
@@ -64,20 +63,6 @@ class Ui_MainWindow(object):
         self.pushButton_2.setText(_translate("MainWindow", "Start MouseCam"))
         self.pushButton.setText(_translate("MainWindow", "Stop MouseCam"))
         self.pushButton_3.setText(_translate("MainWindow", "Switch Camera"))
-
-class frame:
-    def cam(self, window):
-        vid = cv2.VideoCapture(0)
-        while True:
-            ret, frame = vid.read()
-            h, w, ch = frame.shape
-            bytes_per_line = ch * w
-            #image = QImage(frame, frame.shape[1], frame.shape[0], frame.strides[0])
-            convert_to_Qt_format = QImage(frame.data, w, h, bytes_per_line, QImage.Format.Format_RGB888)
-            pixmap = QPixmap.fromImage(convert_to_Qt_format)
-            #self.image_label.setPixmap(pixmap)
-            window.image_label.setPixmap(pixmap)
-            if dead: break
 
 if __name__ == "__main__":
     import sys
