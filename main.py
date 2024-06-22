@@ -1,14 +1,45 @@
+import time
 import mediapipe as mp
 import threading, gui
 from PyQt6 import QtCore, QtGui, QtWidgets
 import sys
-import cv2
+import cv2, pyautogui
 from PyQt6.QtCore import QTimer
 from PyQt6.QtGui import QImage, QPixmap
 from PyQt6.QtWidgets import QApplication, QLabel, QMainWindow, QVBoxLayout, QWidget
     
+class clean:
+    def __init__(self):
+        self.var = []
 
-class frame:
+    def add_cooards(self, x, y):
+        self.var.append((x,y))
+
+    def avg(self):
+        avg = 0
+        if self.var:
+            for i in self.var:
+                avg+=i
+            return avg/len(self.var)
+        else: return 0
+    
+    def clean(self):
+        if self.var:
+            self.var = self.var.clear()
+
+    def running(self, window):
+        while dead == False:
+            the_time = time.time()
+            while time.time()-the_time < .5:
+                pass
+            if window.MouseCamButton.isChecked():
+                try:pyautogui.moveTo(self.avg())
+                except:pass
+            self.clean()
+        
+    
+
+class frame:  
     def cam(self, window) -> None:
         cam_no = int(window.CameraBox.value())
         try:vid = cv2.VideoCapture(cam_no)
@@ -17,6 +48,8 @@ class frame:
             vid = cv2.VideoCapture(cam_no)
         hand = mp.solutions.hands.Hands()
         point = mp.solutions.drawing_utils
+        p1 = threading.Thread(target=iclean.running, args=(window,))
+        p1.start()
         while True:
             try: 
                 if cam_no != int(window.CameraBox.value()): cam_no = int(window.CameraBox.value())
@@ -37,6 +70,10 @@ class frame:
                         y = int(landmark.y*frame_height)
                         print(f"{x}, {y}")
                         if id == 8:
+                            #time.sleep(.5)
+                            iclean.avg()
+                            #pyautogui.moveTo(x,y)
+                            #time.sleep(.5)
                             window.label_2.setText(f"🟢 Status: Detection ({x}, {y})")
                             cv2.circle(img=frame, center=(x,y), radius=12, color=(0,255,0))
                         
@@ -51,7 +88,7 @@ class frame:
             window.image_label.setPixmap(pixmap)
             window.image_label.setScaledContents(False)
             if dead: break
-
+    
 if __name__ == "__main__":
     import sys
     global dead
@@ -61,6 +98,7 @@ if __name__ == "__main__":
     ui = gui.Ui_MainWindow()
     ui.setupUi(MainWindow)
     iframe = frame()
+    iclean = clean()
     x = threading.Thread(target=iframe.cam, args=(ui,))
     x.start()
     MainWindow.show()
