@@ -34,7 +34,7 @@ class frame:
             _, frame = vid.read()
             
             hands, frame = detector.findHands(frame)
-            classifier = Classifier("Model/keras_model.h5", "Model/label.txt")
+            classifier = Classifier("Model/keras_model.h5", "Model/labels.txt")
             frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             if hands:
                 hand = hands[0]
@@ -57,7 +57,8 @@ class frame:
                 imgResizeShape = imgResize.shape
                 wGap = ceil((imgsize - wCal) / 2)
                 imgWhite = imgResize
-                prediction, index = classifier.getPrediction(frame)
+                prediction, index = classifier.getPrediction(imgWhite)
+                print(prediction, index)
             else:
                 k = imgsize / w
                 hCal = ceil(k * h)
@@ -66,8 +67,10 @@ class frame:
                 imgResizeShape = imgResize.shape
                 hGap = ceil((imgsize - hCal) / 2)
                 imgWhite = imgResize
-                #classifier.getPrediction(frame)
-            
+                prediction, index = classifier.getPrediction(imgWhite)
+                print(prediction, index)
+            try: window.label_2.setText(labels[index])
+            except:pass
                         
             #else:window.label_2.setText("🟡 Status: Detection (pending hand input...)")
 

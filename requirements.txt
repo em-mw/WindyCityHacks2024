@@ -6,7 +6,6 @@ cvzone
 click
 colorama
 matplotlib
-PyAutoGui
 PyQt6
 utils
 tensorflow
