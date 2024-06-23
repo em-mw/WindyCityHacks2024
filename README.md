@@ -1,4 +1,5 @@
-# Hello, this is my SOLO submition for Windy City Hacks, Schumburg
+# About
+Hello, This is my solo submission for Windy City Hacks, Schumburg. I wanted to make an educational program that allows people with disabilities to be better able to comunicate and interact with the learning enviornment in schools (in this case ASL to Text). As schools around the world have slowly drifted towards using more technology, it opens up an opertunity to allow more students to utilize cool and new technologies that are easily intagratable into the classroom enviornment. This concept is still, well, a concept so it only supports ASL letters A-G, but nevertheless it is still a usefull program to use in the classroom.
 
 ## Dependencies:
 just run the req.txt through pip
