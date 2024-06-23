@@ -1,4 +1,7 @@
+from math import ceil
 import time
+from cvzone.HandTrackingModule import HandDetector
+from cvzone.ClassificationModule import Classifier
 import mediapipe as mp
 import threading, gui
 from PyQt6 import QtCore, QtGui, QtWidgets
@@ -11,13 +14,16 @@ from PyQt6.QtWidgets import QApplication, QLabel, QMainWindow, QVBoxLayout, QWid
 
 class frame:  
     def cam(self, window) -> None:
+        detector = HandDetector(maxHands=1)
         cam_no = int(window.CameraBox.value())
         try:vid = cv2.VideoCapture(cam_no)
         except:
             print("error")
-            vid = cv2.VideoCapture(cam_no)
+            #vid = cv2.VideoCapture(cam_no)
         hand = mp.solutions.hands.Hands()
         point = mp.solutions.drawing_utils
+        imgsize = 300
+        labels = ["A", "B", "C", "D", "E", "F", "G"]
         #p1 = threading.Thread(target=iclean.running, args=(window,))
         #p1.start()
         while True:
@@ -26,24 +32,44 @@ class frame:
             except: 
                 window.label_2.setText("❗📷➡️🧾❗SET CAM AS NUMBER NOT TEXT")
             _, frame = vid.read()
+            
+            hands, frame = detector.findHands(frame)
+            classifier = Classifier("Model/keras_model.h5", "Model/label.txt")
             frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-            frame_height, frame_width, _ = frame.shape
-            hand_output = hand.process(frame)
-            hands_disp = hand_output.multi_hand_landmarks
-            #print(hands_disp)
-            if hands_disp and window.MouseCamButton.isChecked():
-                for point_data in hands_disp:
-                    point.draw_landmarks(frame, point_data, mp.solutions.hands.HAND_CONNECTIONS)
-                    landmarks = point_data.landmark
-                    for id, landmark in enumerate(landmarks):
-                        x = int(landmark.x*frame_width)
-                        y = int(landmark.y*frame_height)
-                        print(f"{x}, {y}")
-                        if id == 8:
-                            window.label_2.setText(f"🟢 Status: Detection ({x}, {y})")
-                            #cv2.circle(img=frame, center=(x,y), radius=12, color=(0,255,0))
+            if hands:
+                hand = hands[0]
+                x, y, w, h = hand['bbox']
+                x, y = x-20, y-20
+                w, h = w+40, h+40
+
+            imgWhite = background = np.zeros((imgsize+500, imgsize+500, 3), dtype=np.uint8)*255 #the thing crashes if there it goes beyond the border
+            imgCrop = frame[y:y+h, x:x+w]
+            ImageCropShape = imgCrop.shape
+            
+
+            aspectRatio = h/w
+
+            if aspectRatio > 1:
+                k = imgsize / h
+                wCal = ceil(k * w)
+                try:imgResize = cv2.resize(imgCrop, (wCal, imgsize))
+                except:pass
+                imgResizeShape = imgResize.shape
+                wGap = ceil((imgsize - wCal) / 2)
+                imgWhite = imgResize
+                prediction, index = classifier.getPrediction(frame)
+            else:
+                k = imgsize / w
+                hCal = ceil(k * h)
+                try:imgResize = cv2.resize(imgCrop, (imgsize, hCal))
+                except:pass
+                imgResizeShape = imgResize.shape
+                hGap = ceil((imgsize - hCal) / 2)
+                imgWhite = imgResize
+                #classifier.getPrediction(frame)
+            
                         
-            else:window.label_2.setText("🟡 Status: Detection (pending hand input...)")
+            #else:window.label_2.setText("🟡 Status: Detection (pending hand input...)")
 
             h, w, ch = frame.shape
             bytes_per_line = ch * w
