@@ -26,6 +26,9 @@
         <pointsize>28</pointsize>
        </font>
       </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
       <property name="text">
        <string>Video Loading...</string>
       </property>
@@ -49,7 +52,8 @@
       <item>
        <widget class="QPushButton" name="MouseCamButton">
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(255, 255, 255);</string>
+         <string notr="true">color: rgb(255, 255, 255);
+selection-background-color: rgb(196, 215, 255);</string>
         </property>
         <property name="text">
          <string>MouseCam is (OFF) ❌</string>
