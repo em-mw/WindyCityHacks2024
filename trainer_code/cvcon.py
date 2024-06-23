@@ -39,5 +39,5 @@ for filename in os.listdir(os.getcwd()+os.sep+"train_img"):
     background.paste(resized_foreground, (x_offset, y_offset))
 
     # Save or display the composed image
-    background.save("1_"+filename)
+    background.save("converted_files"+os.sep+"1_"+filename)
     background.show()

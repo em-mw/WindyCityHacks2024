@@ -1,0 +1,11 @@
+Pillow
+numpy
+opencv-python
+mediapipe
+cvzone
+click
+colorama
+matplotlib
+PyAutoGui
+PyQt6
+utils
