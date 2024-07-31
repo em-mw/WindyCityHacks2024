@@ -12,7 +12,7 @@ just run the req.txt through pip
     - got to (Teachable Machines)[https://teachablemachine.withgoogle.com/] and train your images as images
         - you will be fine with the default settings but if you want to change them then feel free to do so
         - to **export**, export the `Kearas` Model from the `Tensor Flow` Tab of the export
-            - **DO NOT TEST YOUR MODEL AS IT WILL BE INACCURATE DUE TO THE DOTS AND LINES NOT BEING PROJECCTED ON YOUR HAND**
+            - **DO NOT TEST YOUR MODEL AS IT WILL BE INACCURATE DUE TO THE DOTS AND LINES NOT BEING PROJECTED ON YOUR HAND**
     - Put replace everything in the `Model` folder to import your new model **(Only A-G Supported as of Currently)**
 
 ## Known Problems
