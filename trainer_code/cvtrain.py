@@ -1,5 +1,4 @@
 import cv2, os
-import cvzone
 import numpy as np
 from cvzone.HandTrackingModule import HandDetector
 from math import ceil

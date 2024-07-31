@@ -10,6 +10,7 @@ import cv2, pyautogui
 from PyQt6.QtCore import QTimer
 from PyQt6.QtGui import QImage, QPixmap
 from PyQt6.QtWidgets import QApplication, QLabel, QMainWindow, QVBoxLayout, QWidget
+import numpy as np
     
 
 class frame:  
@@ -34,6 +35,7 @@ class frame:
             _, frame = vid.read()
             
             hands, frame = detector.findHands(frame)
+            #this is the tensorflow error
             classifier = Classifier("Model/keras_model.h5", "Model/labels.txt")
             frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             if hands:
@@ -57,8 +59,9 @@ class frame:
                 imgResizeShape = imgResize.shape
                 wGap = ceil((imgsize - wCal) / 2)
                 imgWhite = imgResize
-                prediction, index = classifier.getPrediction(imgWhite)
-                print(prediction, index)
+                #this is commented out due to there not being a working tensor flow classifier
+                #prediction, index = classifier.getPrediction(imgWhite)
+                #print(prediction, index)
             else:
                 k = imgsize / w
                 hCal = ceil(k * h)
@@ -67,10 +70,11 @@ class frame:
                 imgResizeShape = imgResize.shape
                 hGap = ceil((imgsize - hCal) / 2)
                 imgWhite = imgResize
-                prediction, index = classifier.getPrediction(imgWhite)
-                print(prediction, index)
-            try: window.label_2.setText(labels[index])
-            except:pass
+                #this is commented out due to there not being a working tensor flow classifier
+                #prediction, index = classifier.getPrediction(imgWhite)
+                #print(prediction, index)
+            #try: window.label_2.setText(labels[index])
+            #except:pass
                         
             #else:window.label_2.setText("🟡 Status: Detection (pending hand input...)")
 

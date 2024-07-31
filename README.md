@@ -15,6 +15,9 @@ just run the req.txt through pip
             - **DO NOT TEST YOUR MODEL AS IT WILL BE INACCURATE DUE TO THE DOTS AND LINES NOT BEING PROJECCTED ON YOUR HAND**
     - Put replace everything in the `Model` folder to import your new model **(Only A-G Supported as of Currently)**
 
+## Known Problems
+- Keras Tensorflow Classifier (main part of the program) doesn't even work
+
 ### Sources:
 - Sign Language Alphabet (Shapes)
     - https://www.ai-media.tv/knowledge-hub/insights/sign-language-alphabets/
